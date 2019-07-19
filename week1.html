@@ -6,15 +6,17 @@
 
   function checkNumber() {
     var notification = document.getElementById("notification");
-    notification.innerHTML = '';
-    if (turn != 0) {
-      var userNumber = document.getElementById("number").value;
-      console.log(userNumber);
-      if (userNumber === "") {
-        notification.innerHTML = "You must input your number";
-        notification.style.color = "red";
-      } else {
+    notification.innerHTML = "";
+    var isWinner = false;
+    var userNumber = document.getElementById("number").value;
+    console.log(userNumber);
+    if (userNumber === "") {
+      notification.innerHTML = "You must input your number";
+      notification.style.color = "red";
+    } else {
+      if (turn != 0 && !isWinner) {
         if (userNumber == finalValue) {
+          isWinner = true;
           alert(
             "Winner. The number is : " +
               finalValue +
@@ -22,21 +24,23 @@
           );
           location.reload();
         } else if (userNumber > finalValue) {
-          notification.innerHTML = "Your number to high. I have a " + turn + " left ";
+          notification.innerHTML =
+            "Your number to high. I have a " + turn + " left ";
           notification.style.color = "red";
         } else if (userNumber < finalValue) {
-          notification.innerHTML = "Your number to low. I have a " + turn + " left ";
+          notification.innerHTML =
+            "Your number to low. I have a " + turn + " left ";
           notification.style.color = "blue";
         }
         userNumberArr += userNumber + "<br>";
         console.log("userNumberArr ", userNumberArr);
         document.getElementById("listUserNumber").innerHTML = userNumberArr;
+      } else {
+        alert("Loser. The number is : " + finalValue);
+        location.reload();
       }
-    } else {
-      alert("Loser. The number is : " + finalValue);
-      location.reload();
+      turn--;
     }
-    turn--;
   }
 </script>
 
